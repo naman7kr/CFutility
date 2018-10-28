@@ -26,17 +26,6 @@
             android:title="Blogs" />
     </group>
 
-    <item android:title="Others">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_rate"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Rate" />
-        </menu>
-    </item>
+
 
 </menu>
