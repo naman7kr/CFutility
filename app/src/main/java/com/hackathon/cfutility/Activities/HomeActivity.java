@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity
         ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.home_container,new HandleInfo()).commit();
         navigationView.setCheckedItem(R.id.nav_handle_info);
+        getSupportActionBar().setTitle("Handle Information");
     }
 
     @Override
