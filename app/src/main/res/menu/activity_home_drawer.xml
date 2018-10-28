@@ -9,21 +9,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Handle Info" />
         <item
-            android:id="@+id/nav_compare_handle"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Compare Handle" />
-        <item
             android:id="@+id/nav_contests"
             android:icon="@drawable/ic_menu_manage"
             android:title="Contests" />
-        <item
-            android:id="@+id/nav_discussions"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Discussions" />
-        <item
-            android:id="@+id/nav_blogs"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Blogs" />
+
     </group>
 
 

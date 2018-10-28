@@ -12,6 +12,7 @@ public class HandleInformation {
     private int contribution;
     private long lastOnlineTimeSecond;
     private String img_path;
+    private int ac,wa,tle,mle;
 
     public String getImg_path() {
         return img_path;
@@ -21,12 +22,44 @@ public class HandleInformation {
         return max_rank;
     }
 
+    public int getAc() {
+        return ac;
+    }
+
+    public void setAc(int ac) {
+        this.ac = ac;
+    }
+
     public String getHandle_name() {
         return handle_name;
     }
 
     public String getRank() {
         return rank;
+    }
+
+    public int getWa() {
+        return wa;
+    }
+
+    public void setWa(int wa) {
+        this.wa = wa;
+    }
+
+    public int getTle() {
+        return tle;
+    }
+
+    public void setTle(int tle) {
+        this.tle = tle;
+    }
+
+    public int getMle() {
+        return mle;
+    }
+
+    public void setMle(int mle) {
+        this.mle = mle;
     }
 
     public int getRating() {

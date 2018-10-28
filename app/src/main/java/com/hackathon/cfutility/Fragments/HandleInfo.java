@@ -32,13 +32,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HandleInfo extends Fragment implements View.OnClickListener {
     URL url=null;
-    TextView handle,handle_rating,handle_max_rating,handle_name,handle_email,handle_city,handle_country,handle_rank,handle_max_rank;
+    TextView total,AC,WA,TLE,MLE,handle,handle_rating,handle_max_rating,handle_name,handle_email,handle_city,handle_country,handle_rank,handle_max_rank;
     CircleImageView handle_image;
     LinearLayout editLayout;
     EditText handle_edit_name;
     Button handle_submit_btn;
     ProgressBar pBar;
     RelativeLayout rLayout;
+    int a=0,w=0,m=0,t=0,tot=0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,13 +53,14 @@ public class HandleInfo extends Fragment implements View.OnClickListener {
         handle = view.findViewById(R.id.handle);
         handle_rating = view.findViewById(R.id.handle_rating);
         handle_max_rating = view.findViewById(R.id.handle_max_rating);
-        handle_name = view.findViewById(R.id.handle_name);
-        handle_email = view.findViewById(R.id.handle_email);
-        handle_city = view.findViewById(R.id.handle_city);
-        handle_country = view.findViewById(R.id.handle_country);
         handle_rank = view.findViewById(R.id.handle_rank);
         handle_max_rank = view.findViewById(R.id.handle_max_rank);
         handle_image = view.findViewById(R.id.handle_image);
+        AC=view.findViewById(R.id.ac);
+        total=view.findViewById(R.id.total_submission);
+        MLE=view.findViewById(R.id.mle);
+        WA=view.findViewById(R.id.wa);
+        TLE=view.findViewById(R.id.tle);
 
         editLayout = view.findViewById(R.id.handle_layout_edit);
         rLayout = view.findViewById(R.id.handle_layout);
@@ -91,19 +93,52 @@ public class HandleInfo extends Fragment implements View.OnClickListener {
                 for(int i=0;i<jar1.length();i++){
                     JSONObject job2 = jar1.getJSONObject(i);
                     HandleInformation info  = new HandleInformation();
+                    if(job2.has("handle"))
                     info.setHandle_name(job2.getString("handle"));
                   //  info.setCity(job2.getString("city"));
                    // info.setCountry(job2.getString("country"));
+                    if(job2.has("contribution"))
                     info.setContribution(job2.getInt("contribution"));
                  //   info.setEmail(job2.getString("email"));
                 //    info.setFirst_name(job2.getString("firstName"));
                  //   info.setLast_name(job2.getString("lastName"));
+                    if(job2.has("rank"))
                     info.setRank(job2.getString("rank"));
+                    if(job2.has("maxRank"))
                     info.setMax_rank(job2.getString("maxRank"));
+                    if(job2.has("rating"))
                     info.setRating(job2.getInt("rating"));
+                    if(job2.has("maxRating"))
                     info.setMax_rating(job2.getInt("maxRating"));
+                    if(job2.has("lastOnlineTimeSeconds"))
                     info.setLastOnlineTimeSecond(job2.getLong("lastOnlineTimeSeconds"));
+                    if(job2.has("avatar"))
                     info.setImg_path("https:"+job2.getString("avatar"));
+
+
+                    if(job2.has("verdict"))
+                    {
+                        if(job2.getString("verdict").compareTo("OK")==0){
+                            a++;
+                            tot=a+w+m+t;
+                            info.setAc(a);
+                        }
+                        else if(job2.getString("verdict").compareTo("WRONG_ANSWER")==0){
+                            w++;
+                            tot=a+w+m+t;
+                            info.setWa(w);
+                        }
+                        else if(job2.getString("verdict").compareTo("TIME_LIMIT_EXCEEDED")==0){
+                            t++;
+                            tot=a+w+m+t;
+                            info.setTle(t);
+                        }
+                        else if(job2.getString("verdict").compareTo("MEMORY_LIMIT_EXCEEDED")==0){
+                            m++;
+                            tot=a+w+m+t;
+                            info.setMle(m);
+                        }
+                    }
                     setDataInUI(info);
 
 
@@ -116,18 +151,40 @@ public class HandleInfo extends Fragment implements View.OnClickListener {
 
     private void setDataInUI(HandleInformation info) {
         pBar.setVisibility(View.GONE);
+        if(info.getHandle_name()!=null)
         handle.setText(info.getHandle_name());
-        Log.e("LOOOOL", String.valueOf(info.getRating()));
+       // Log.e("LOOOOL", String.valueOf(info.getRating()));
+        if(info.getRating()!=0)
         handle_rating.setText(String.valueOf(info.getRating()));
+        if(info.getMax_rating()!=0)
         handle_max_rating.setText(String.valueOf(info.getMax_rating()));
+        if(info.getMax_rank()!=null)
         handle_max_rank.setText(info.getMax_rank());
+        if(info.getRank()!=null)
         handle_rank.setText(info.getRank());
       //  handle_country.setText(info.getCountry());
-        handle_email.setText(info.getEmail());
+
+
+        if(info.getAc()!=0)
+            AC.setText(String.valueOf(info.getAc()));
+
+        if(info.getWa()!=0)
+            WA.setText(String.valueOf(info.getWa()));
+
+        if(info.getTle()!=0)
+            TLE.setText(String.valueOf(info.getTle()));
+
+        if(info.getMle()!=0)
+            MLE.setText(String.valueOf(info.getMle()));
+
+        if(info.getAc()!=0)
+            total.setText(String.valueOf(tot));
+
       //  handle_city.setText(info.getCity());
    //     handle_email.setText(info.getEmail());
     //    handle_name.setText(info.getFirst_name()+" "+info.getLast_name());
-        Log.e("LUL",info.getImg_path());
+//        Log.e("LUL",info.getImg_path());
+        if(info.getImg_path()!=null)
         Picasso.with(getContext())
                 .load(info.getImg_path())
                 .placeholder(android.R.drawable.sym_def_app_icon)
@@ -144,6 +201,10 @@ public class HandleInfo extends Fragment implements View.OnClickListener {
             url = new URL("http://codeforces.com/api/user.info?handles="+handle_edit_name.getText());
             CFresponse cFresponse = new CFresponse(this);
             cFresponse.execute(url);
+            CFresponse cFresponse1=new CFresponse(this);
+            url = new URL("http://codeforces.com/api/user.status?handle="+handle_edit_name.getText()+"&from=1&count=2000");
+            cFresponse1.execute(url);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
             Toast.makeText(getContext(),"Error in fetching Data",Toast.LENGTH_SHORT).show();

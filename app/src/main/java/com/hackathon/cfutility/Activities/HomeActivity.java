@@ -87,29 +87,11 @@ public class HomeActivity extends AppCompatActivity
                 ft.replace(R.id.home_container, new HandleInfo()).commit();
                 getSupportActionBar().setTitle("Handle Information");
             }
-        } else if (id == R.id.nav_compare_handle) {
-            if(!(f instanceof CompareHandle)){
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.home_container, new CompareHandle()).commit();
-                getSupportActionBar().setTitle("Compare Handle");
-            }
         } else if (id == R.id.nav_contests) {
             if(!(f instanceof Contests)){
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.home_container, new Contests()).commit();
                 getSupportActionBar().setTitle("Contests");
-            }
-        } else if (id == R.id.nav_discussions) {
-            if(!(f instanceof Discussions)){
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.home_container, new Discussions()).commit();
-                getSupportActionBar().setTitle("Discussions");
-            }
-        } else if (id == R.id.nav_blogs) {
-            if(!(f instanceof Blogs)){
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.home_container, new Blogs()).commit();
-                getSupportActionBar().setTitle("Blogs");
             }
         }
 
