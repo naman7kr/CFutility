@@ -21,6 +21,7 @@ public class HandleInfo extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_handle_info,container,false);
+
         try {
             //url to be changed
             url = new URL("http://codeforces.com/api/user.info?handles=utkarshh12");
