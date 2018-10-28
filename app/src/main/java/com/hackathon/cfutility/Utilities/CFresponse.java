@@ -1,8 +1,10 @@
 package com.hackathon.cfutility.Utilities;
 
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.hackathon.cfutility.Fragments.Contests;
+import com.hackathon.cfutility.Fragments.Discussions;
 import com.hackathon.cfutility.Fragments.HandleInfo;
 
 import java.io.BufferedReader;
@@ -16,11 +18,14 @@ public class CFresponse extends AsyncTask<URL,Void,String> {
     URL url;
     HandleInfo handleInfo;
     Contests contests;
+    Discussions discussions;
     public CFresponse(HandleInfo handleInfo) {
         this.handleInfo = handleInfo;
     }
-    public CFresponse(Contests contests){
-        this.contests = contests;
+
+
+    public CFresponse(Discussions discussions) {
+        this.discussions = discussions;
     }
 
     @Override
@@ -51,6 +56,8 @@ public class CFresponse extends AsyncTask<URL,Void,String> {
             handleInfo.handleData(s);
             return;
         }
-
+        if(discussions!=null){
+            discussions.handleData(s);
+        }
     }
 }
